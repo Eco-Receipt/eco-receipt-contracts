@@ -26,14 +26,7 @@ contract GreenReceiptNFTTest is Test {
 
         vm.prank(owner);
         uint256 tokenId = nft.mintReceipt(
-            user,
-            "Nike Pegasus Trail 5 DV3865-602",
-            "Nike",
-            82,
-            "B",
-            reportHash,
-            evidenceRoot,
-            metadataURI
+            user, "Nike Pegasus Trail 5 DV3865-602", "Nike", 82, "B", reportHash, evidenceRoot, metadataURI
         );
 
         assertEq(tokenId, 1);
@@ -62,7 +55,8 @@ contract GreenReceiptNFTTest is Test {
         assertTrue(nft.isAuditor(auditor));
 
         vm.prank(auditor);
-        uint256 tokenId = nft.mintReceipt(user, "Patagonia Jacket", "Patagonia", 91, "A", reportHash, evidenceRoot, metadataURI);
+        uint256 tokenId =
+            nft.mintReceipt(user, "Patagonia Jacket", "Patagonia", 91, "A", reportHash, evidenceRoot, metadataURI);
 
         assertEq(tokenId, 1);
         assertEq(nft.ownerOf(tokenId), user);
@@ -127,8 +121,10 @@ contract GreenReceiptNFTTest is Test {
 
     function testTokenIdsAutoIncrement() public {
         vm.startPrank(owner);
-        uint256 firstTokenId = nft.mintReceipt(user, "Product One", "Brand", 80, "B", reportHash, evidenceRoot, metadataURI);
-        uint256 secondTokenId = nft.mintReceipt(user, "Product Two", "Brand", 81, "B", reportHash, evidenceRoot, metadataURI);
+        uint256 firstTokenId =
+            nft.mintReceipt(user, "Product One", "Brand", 80, "B", reportHash, evidenceRoot, metadataURI);
+        uint256 secondTokenId =
+            nft.mintReceipt(user, "Product Two", "Brand", 81, "B", reportHash, evidenceRoot, metadataURI);
         vm.stopPrank();
 
         assertEq(firstTokenId, 1);

@@ -100,16 +100,7 @@ contract GreenReceiptNFT is ERC721URIStorage, Ownable {
         });
 
         emit ReceiptMinted(
-            tokenId,
-            to,
-            msg.sender,
-            productName,
-            brand,
-            score,
-            grade,
-            reportHash,
-            evidenceMerkleRoot,
-            metadataURI
+            tokenId, to, msg.sender, productName, brand, score, grade, reportHash, evidenceMerkleRoot, metadataURI
         );
 
         return tokenId;

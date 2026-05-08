@@ -60,7 +60,7 @@ contract GreenReceiptNFT is ERC721URIStorage, Ownable {
         _;
     }
 
-    constructor() ERC721("Eco Receipt Green Receipt", "GREEN") Ownable(msg.sender) {}
+    constructor() ERC721("Eco Receipt NFT", "ERN") Ownable(msg.sender) {}
 
     /// @notice Mint one NFT that represents one environmental assessment report.
     /// @dev Stores hashes and summary fields only. Full report/evidence should live off-chain.

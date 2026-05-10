@@ -4,12 +4,12 @@ pragma solidity ^0.8.24;
 import {ERC721URIStorage, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-/// @title GreenReceiptNFT
+/// @title EcoReceiptNFT
 /// @notice NFT certificate for an AI-generated environmental receipt.
 /// @dev The full report and raw evidence stay off-chain. This contract stores only
 ///      concise public fields plus hashes that can be used to verify off-chain data.
-contract GreenReceiptNFT is ERC721URIStorage, Ownable {
-    struct GreenReceipt {
+contract EcoReceiptNFT is ERC721URIStorage, Ownable {
+    struct EcoReceipt {
         uint256 tokenId;
         string productName;
         string brand;
@@ -51,7 +51,7 @@ contract GreenReceiptNFT is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId = 1;
 
     mapping(address => bool) private _auditors;
-    mapping(uint256 => GreenReceipt) private _receipts;
+    mapping(uint256 => EcoReceipt) private _receipts;
 
     modifier onlyAuthorizedMinter() {
         if (msg.sender != owner() && !_auditors[msg.sender]) {
@@ -85,7 +85,7 @@ contract GreenReceiptNFT is ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, metadataURI);
 
-        _receipts[tokenId] = GreenReceipt({
+        _receipts[tokenId] = EcoReceipt({
             tokenId: tokenId,
             productName: productName,
             brand: brand,
@@ -107,7 +107,7 @@ contract GreenReceiptNFT is ERC721URIStorage, Ownable {
     }
 
     /// @notice Return the on-chain summary and verification hashes for a receipt NFT.
-    function getReceipt(uint256 tokenId) external view returns (GreenReceipt memory) {
+    function getReceipt(uint256 tokenId) external view returns (EcoReceipt memory) {
         if (!exists(tokenId)) revert NonexistentToken(tokenId);
         return _receipts[tokenId];
     }

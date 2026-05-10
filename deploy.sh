@@ -12,7 +12,7 @@ SCRIPT="DeployEcoReceiptNFT"
 CONTRACT="EcoReceiptNFT"
 CONTRACT_SRC="src/${CONTRACT}.sol"
 CHAIN_ID="${CHAIN_ID:-10143}"
-RPC_URL="${MONADTESTNET_RPC_URL:?Please set MONADTESTNET_RPC_URL in .env}"
+RPC_URL="${MONAD_TESTNET_RPC_URL:?Please set MONAD_TESTNET_RPC_URL in .env}"
 PRIVATE_KEY="${PRIVATE_KEY:?Please set PRIVATE_KEY in .env}"
 VERIFIER_URL="${VERIFIER_URL:-https://sourcify-api-monad.blockvision.org}"
 
@@ -25,7 +25,7 @@ echo ""
 echo "  RPC     : ${RPC_URL}"
 echo "  Chain   : ${CHAIN_ID}"
 echo ""
-
+forge clean && forge build
 forge script "${SCRIPT}" \
   --rpc-url "${RPC_URL}" \
   --private-key "${PRIVATE_KEY}" \

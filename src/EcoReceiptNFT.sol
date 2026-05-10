@@ -67,12 +67,12 @@ contract EcoReceiptNFT is ERC721URIStorage, Ownable {
     function mintReceipt(
         address to,
         string memory productName,
-        string memory brand,  // 品牌名称
-        uint8 score,  // 评分
-        string memory grade,  // 等级
+        string memory brand,
+        uint8 score,
+        string memory grade,
         bytes32 reportHash,
-        bytes32 evidenceMerkleRoot,  // 证据 Merkle Root
-        string memory metadataURI  // metadata URI
+        bytes32 evidenceMerkleRoot,
+        string memory metadataURI
     ) external onlyAuthorizedMinter returns (uint256) {
         if (to == address(0)) revert InvalidRecipient();
         if (score > 100) revert InvalidScore(score);

@@ -1,11 +1,11 @@
 {
   "contractName": "EcoReceiptNFT",
-  "address": "0xe51f055a535b05d2490ebdce49076a2b9c10edcd",
+  "address": "0x5dceddd6fd5a9f770b7585b9194ffa5b40a13f4d",
   "chainId": 10143,
   "network": "monad-testnet",
-  "deployTx": "0xf7930ebc7583d3b48eb4419058da2d50a0751f38bd88a6882560af3aaf7ce99a",
-  "deployBlock": 30777522,
-  "deployTimestamp": 1778373803457,
+  "deployTx": "0x7822e3efc996a812d9d4fbf500eecee6a06a8b55177df808a190480d7125553c",
+  "deployBlock": 30780616,
+  "deployTimestamp": 1778375055842,
   "abi": [
     {
       "type": "constructor",

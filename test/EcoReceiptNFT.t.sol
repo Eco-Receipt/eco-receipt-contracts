@@ -2,23 +2,23 @@
 pragma solidity ^0.8.24;
 
 import {Test} from "forge-std/Test.sol";
-import {GreenReceiptNFT} from "../src/GreenReceiptNFT.sol";
+import {EcoReceiptNFT} from "../src/EcoReceiptNFT.sol";
 
-contract GreenReceiptNFTTest is Test {
-    GreenReceiptNFT private nft;
+contract EcoReceiptNFTTest is Test {
+    EcoReceiptNFT private nft;
 
     address private owner = address(0xA11CE);
     address private auditor = address(0xA0D170);
     address private user = address(0xB0B);
     address private stranger = address(0xBAD);
 
-    bytes32 private reportHash = keccak256("green receipt report json");
+    bytes32 private reportHash = keccak256("Eco receipt report json");
     bytes32 private evidenceRoot = keccak256("evidence merkle root");
-    string private metadataURI = "ipfs://bafy-green-receipt-metadata";
+    string private metadataURI = "ipfs://bafy-Eco-receipt-metadata";
 
     function setUp() public {
         vm.prank(owner);
-        nft = new GreenReceiptNFT();
+        nft = new EcoReceiptNFT();
     }
 
     function testOwnerCanMintReceipt() public {
@@ -34,7 +34,7 @@ contract GreenReceiptNFTTest is Test {
         assertEq(nft.tokenURI(tokenId), metadataURI);
         assertTrue(nft.exists(tokenId));
 
-        GreenReceiptNFT.GreenReceipt memory receipt = nft.getReceipt(tokenId);
+        EcoReceiptNFT.EcoReceipt memory receipt = nft.getReceipt(tokenId);
         assertEq(receipt.tokenId, tokenId);
         assertEq(receipt.productName, "Nike Pegasus Trail 5 DV3865-602");
         assertEq(receipt.brand, "Nike");
@@ -61,7 +61,7 @@ contract GreenReceiptNFTTest is Test {
         assertEq(tokenId, 1);
         assertEq(nft.ownerOf(tokenId), user);
 
-        GreenReceiptNFT.GreenReceipt memory receipt = nft.getReceipt(tokenId);
+        EcoReceiptNFT.EcoReceipt memory receipt = nft.getReceipt(tokenId);
         assertEq(receipt.auditor, auditor);
     }
 
@@ -74,48 +74,48 @@ contract GreenReceiptNFTTest is Test {
         assertFalse(nft.isAuditor(auditor));
 
         vm.prank(auditor);
-        vm.expectRevert(abi.encodeWithSelector(GreenReceiptNFT.UnauthorizedMinter.selector, auditor));
+        vm.expectRevert(abi.encodeWithSelector(EcoReceiptNFT.UnauthorizedMinter.selector, auditor));
         nft.mintReceipt(user, "Patagonia Jacket", "Patagonia", 91, "A", reportHash, evidenceRoot, metadataURI);
     }
 
     function testUnauthorizedAccountCannotMint() public {
         vm.prank(stranger);
-        vm.expectRevert(abi.encodeWithSelector(GreenReceiptNFT.UnauthorizedMinter.selector, stranger));
+        vm.expectRevert(abi.encodeWithSelector(EcoReceiptNFT.UnauthorizedMinter.selector, stranger));
         nft.mintReceipt(user, "Unknown Product", "Unknown", 50, "C", reportHash, evidenceRoot, metadataURI);
     }
 
     function testMintRevertsWhenScoreAbove100() public {
         vm.prank(owner);
-        vm.expectRevert(abi.encodeWithSelector(GreenReceiptNFT.InvalidScore.selector, 101));
+        vm.expectRevert(abi.encodeWithSelector(EcoReceiptNFT.InvalidScore.selector, 101));
         nft.mintReceipt(user, "Product", "Brand", 101, "F", reportHash, evidenceRoot, metadataURI);
     }
 
     function testMintRevertsWhenReportHashIsEmpty() public {
         vm.prank(owner);
-        vm.expectRevert(GreenReceiptNFT.EmptyReportHash.selector);
+        vm.expectRevert(EcoReceiptNFT.EmptyReportHash.selector);
         nft.mintReceipt(user, "Product", "Brand", 80, "B", bytes32(0), evidenceRoot, metadataURI);
     }
 
     function testMintRevertsWhenEvidenceRootIsEmpty() public {
         vm.prank(owner);
-        vm.expectRevert(GreenReceiptNFT.EmptyEvidenceMerkleRoot.selector);
+        vm.expectRevert(EcoReceiptNFT.EmptyEvidenceMerkleRoot.selector);
         nft.mintReceipt(user, "Product", "Brand", 80, "B", reportHash, bytes32(0), metadataURI);
     }
 
     function testMintRevertsWhenMetadataURIIsEmpty() public {
         vm.prank(owner);
-        vm.expectRevert(GreenReceiptNFT.EmptyMetadataURI.selector);
+        vm.expectRevert(EcoReceiptNFT.EmptyMetadataURI.selector);
         nft.mintReceipt(user, "Product", "Brand", 80, "B", reportHash, evidenceRoot, "");
     }
 
     function testMintRevertsWhenRecipientIsZeroAddress() public {
         vm.prank(owner);
-        vm.expectRevert(GreenReceiptNFT.InvalidRecipient.selector);
+        vm.expectRevert(EcoReceiptNFT.InvalidRecipient.selector);
         nft.mintReceipt(address(0), "Product", "Brand", 80, "B", reportHash, evidenceRoot, metadataURI);
     }
 
     function testGetReceiptRevertsForNonexistentToken() public {
-        vm.expectRevert(abi.encodeWithSelector(GreenReceiptNFT.NonexistentToken.selector, 999));
+        vm.expectRevert(abi.encodeWithSelector(EcoReceiptNFT.NonexistentToken.selector, 999));
         nft.getReceipt(999);
     }
 
